@@ -35,4 +35,3 @@ volumes:
 networks:
   scrape-network:
     name: scrape-network
-    external: true
