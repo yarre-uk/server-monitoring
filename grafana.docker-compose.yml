@@ -13,8 +13,22 @@ services:
     networks:
       - scrape-network
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - '9443:9443'
+      - '8000:8000'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - scrape-network
+
 volumes:
   grafana_storage:
+  portainer_data:
 
 networks:
   scrape-network:
