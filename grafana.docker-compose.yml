@@ -6,12 +6,15 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+    env_file:
+      - .env
     ports:
       - '3000:3000'
     volumes:
-      - ./grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./grafana/provisioning:/etc/grafana/provisioning
       - grafana_storage:/var/lib/grafana
-
+    networks:
+      - scrape-network
 
 volumes:
   grafana_storage:
