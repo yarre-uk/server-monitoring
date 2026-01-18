@@ -9,10 +9,10 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     restart: unless-stopped
     pid: host
+    networks:
+      - scrape-network
     volumes:
       - '/:/host:ro,rslave'
-    ports:
-      - "9100:9100"
 
   prometheus:
     image: prom/prometheus:latest
@@ -24,10 +24,15 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-    ports:
-      - "9090:9090"
+    networks:
+      - scrape-network
     depends_on:
       - node-exporter
 
 volumes:
   prometheus-data:
+
+networks:
+  scrape-network:
+    name: scrape-network
+    external: true
