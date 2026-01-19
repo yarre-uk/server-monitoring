@@ -6,3 +6,5 @@ scrape_configs:
   - job_name: 'node'
     static_configs:
       - targets: ['node-exporter:9100']
+        labels:
+          instance: 'machine-name'
