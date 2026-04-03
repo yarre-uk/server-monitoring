@@ -2,6 +2,7 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
+    hostname: server-instance
     command:
       - '--path.rootfs=/host'
       - '--path.procfs=/host/proc'
